@@ -12,22 +12,43 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // sign-up user
-app.post('/signup', (req, res) => {
+app.post('/signup', /* userController.createUser, */ (req, res) => {
+  // Middleware
+    // userController.findUser
+    // passwordController.encryptPassword
+    // userController.createUser
   res.locals.request = req.body
   res.status(200).send('route to user page')
+  // front end needs - authentication: boolean, all user info
+
 })
 
 // login user
-app.get('/login', (req, res) => {
+app.get('/login',/* userController.authenticateUser, */ (req, res) => {
   res.status(200).json('send user info as an object');
+  // front end needs - authentication: boolean, all user info
+  // Middleware
+    // userController.findUser
+    // passwordController.checkPassword
+
+})
+
+// Might need this
+app.get('/stats', (req, res) => {
+
 })
 // MVP
-// create walk route
+// create walk route (possibly -> this will likely be handled on the frontend)
   // req.body location of user and number of miles user wants to walk
   // fetch walk destination, an address from yelp api
   // res.body walk destination address, route, and distance
 
 // Walk is Complete
+app.post('/completed', /* userController.addWalk */ (req, res) => {
+  // userController.addWalk
+    //
+  res.status(200).json('')
+})
   // req.body update user in db
 
 // For serving client index.html
