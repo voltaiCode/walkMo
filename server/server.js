@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 // Gives path of current
 const path = require('path');
 // fake require in for models (testing)
-const models = require('./models/usersModel');
+const models = require('./models/userModel');
 
 const PORT = 3000;
 
@@ -15,42 +15,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // sign-up user
-app.post(
-  '/signup',
-  /* userController.createUser, */ (req, res) => {
-    const newUser = req.body;
-    console.log(newUser);
-    models.User.create(newUser, function(err, docs) {
-      if (err) {
-        // return next(err);
-      } else {
-        req.body = docs;
-        console.log(req.body);
-        // return next();
-      }
-
-      // Middleware
-      // userController.findUser
-      // passwordController.encryptPassword
-      // userController.createUser
-      // res.locals.request = req.body;
-      // res.status(200).send('route to user page');
-      // front end needs - authentication: boolean, all user info
-    });
-  }
-);
+app.post('/signup', sessionController.encrypt, userController.createUser, (req, res) => {
+  // Middleware
+  // passwordController.encrypt
+  // userController.findUser
+  // userController.createUser
+  // res.locals.request = req.body;
+  // res.status(200).send('route to user page');
+  // front end needs - authentication: boolean, all user info
+});
 
 // login user
-app.get(
-  '/login',
-  /* userController.authenticateUser, */ (req, res) => {
-    res.status(200).json('send user info as an object');
-    // front end needs - authentication: boolean, all user info
-    // Middleware
-    // userController.findUser
-    // passwordController.checkPassword
-  }
-);
+app.get('/login', sessionController.encrypt, userController.findUser, (req, res) => {
+  res.status(200).json('send user info as an object');
+  // front end needs - authentication: boolean, all user info
+  // Middleware
+  // passwordController.checkPassword
+  // userController.findUser
+});
 
 // Might need this
 app.get('/stats', (req, res) => {});
@@ -61,14 +43,10 @@ app.get('/stats', (req, res) => {});
 // res.body walk destination address, route, and distance
 
 // Walk is Complete
-app.post(
-  '/completed',
-  /* userController.addWalk */ (req, res) => {
-    // userController.addWalk
-    //
-    res.status(200).json('');
-  }
-);
+app.post('/completed', userController.addWalk, (req, res) => {
+  // userController.addWalk
+  res.status(200).json('sick walk');
+});
 // req.body update user in db
 
 // For serving client index.html

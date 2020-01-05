@@ -21,7 +21,8 @@ const userSchema = new Schema({
   lastName: { type: String, require: true },
   email: { type: String, require: true },
   password: { type: String, require: true },
-  birthdate: { type: Date },
+  // change to accept Month, Day, Year
+  birthdate: { type: String },
   createdAt: { type: Date, default: Date.now },
   prevRoutes: [
     {
