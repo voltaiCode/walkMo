@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-const userSchema = new Schema({
+const cookieSchema = new Schema({
   // create cookieSchema here
   // firstName: { type: String, require: true },
   // lastName: { type: String, require: true },

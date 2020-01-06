@@ -1,12 +1,17 @@
 const User = require('../models/userModel');
+const cookieParser = require('cookieParser');
+const cookie = require('../models/cookieModel');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 const userController = {};
 
 // createUser controller
 // accept bday as YYYY-MM-DD
 userController.createUser = (req, res, next) => {
+  // password should have been hashed in previous middleware
   const newUser = req.body;
-  // console.log(newUser);
   models.User.create(newUser, function(err, docs) {
     if (err) {
       return next({

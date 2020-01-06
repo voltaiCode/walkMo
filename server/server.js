@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // sign-up user
 app.post('/signup', sessionController.encrypt, userController.createUser, (req, res) => {
   // Middleware
-  // passwordController.encrypt
+  // sessionController.encrypt
   // userController.findUser
   // userController.createUser
   // res.locals.request = req.body;
@@ -50,7 +50,7 @@ app.post('/completed', userController.addWalk, (req, res) => {
 // req.body update user in db
 
 // For serving client index.html
-app.use('*', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
