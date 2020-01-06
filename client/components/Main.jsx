@@ -3,7 +3,7 @@ import { BrowserRouter , Route, Switch} from 'react-router-dom';
 import Header from './Header.jsx';
 import MainUserStats from './MainUserStats.jsx';
 import InputLocation from './InputLocation.jsx';
-import RenderMap from './RenderMap.jsx';
+
 
 class Main extends Component {
   constructor(props) {
@@ -23,7 +23,9 @@ class Main extends Component {
   render() {
     return(
       <React.Fragment>
-        <h1>Hola</h1>
+        <MainUserStats />
+        {/* <h1>Hola</h1> */}
+        
       </React.Fragment>
     );
   };

@@ -20,10 +20,9 @@ const Public = (props) => {
     margin-bottom: 2em;
   `
   return (
+    <React.Fragment>
+    <LogIn changeLoggedIn={props.changeLoggedIn} />
     <Container>
-      <Row>
-        <LogIn changeLoggedIn={props.changeLoggedIn} />
-      </Row>
       <Row>
         <Col>
         <H1> Start moving and get points! </H1>
@@ -35,6 +34,7 @@ const Public = (props) => {
         </Col>
       </Row>     
     </Container>
+    </React.Fragment>
   );
 };
 

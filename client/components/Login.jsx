@@ -1,9 +1,7 @@
 import React, { Component, useState } from 'react';
 import { Container, Navbar, Nav, Form, Button, Col} from 'react-bootstrap';
-import styled from 'styled-components';
-import axios from 'axios';
 
-
+//function to initiate state and onChange handler
 const userInput = init => {
     const  [value, setValue ] = useState(init);
     const onChange = e => {
@@ -11,13 +9,14 @@ const userInput = init => {
     }
     return [value, onChange];
 }
-
+//using Hooks to create state and use validated method in Bootstrap
 const LogIn = props => {
     const [username, usernameOnChange ] = userInput('');
     const [password, passwordOnChange ] = userInput('');
 
     const [validated, setValidated] = useState(false);
     
+    //handleClick handler to check validation of log in and setState
     const handleClick = event =>{
         const form = event.currentTarget;
         event.preventDefault();
@@ -48,9 +47,7 @@ const LogIn = props => {
     }
     return(
         <Navbar bg="dark" variant="dark">
-            <Container>
-                <Navbar.Brand href="#Home">WalkMo</Navbar.Brand>
-                
+            <Navbar.Brand href="#Home">WalkMo</Navbar.Brand>
                 <Form noValidate validated={validated} onSubmit={handleClick}>
                     <Form.Row>
                         <Form.Group as={Col}>
@@ -65,7 +62,7 @@ const LogIn = props => {
                             <Form.Control.Feedback type="invalid">
                                 Please provide a valid email
                             </Form.Control.Feedback>
-                         </Form.Group>  
+                        </Form.Group>  
 
                         <Form.Group as={Col}> 
                             <Form.Control
@@ -84,12 +81,10 @@ const LogIn = props => {
                         <Button type="submit" variant="outline-info">Log In</Button>
                     {/* <Nav.Item>
                         <Nav.Link href="/Home">Forgot Password?</Nav.Link>
-                    </Nav.Item> */}
-                        </Form.Group> 
-                    </Form.Row> 
-                </Form>
-                
-            </Container>
+                        </Nav.Item> */}
+                    </Form.Group> 
+                </Form.Row> 
+             </Form>
         </Navbar>         
     )       
 }
