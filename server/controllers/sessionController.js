@@ -1,4 +1,4 @@
-const User = require('../models/userModel');
+const userModel = require('../models/userModel');
 const cookieParser = require('cookie-parser');
 const cookie = require('../models/cookieModel');
 const bcrypt = require('bcrypt');
@@ -7,6 +7,7 @@ const sessionController = {};
 
 // passwordController.setCookie
 sessionController.encrypt = (req, res, next) => {
+  console.log('current pos: sessionController.encrypt');
   const saltRounds = 10;
   const hashed = bcrypt.hashSync(req.body.password, saltRounds);
   // storing hashed pw at req.body.password
@@ -18,26 +19,41 @@ sessionController.encrypt = (req, res, next) => {
 
 // might be redundant, but wrote this code just in case we need to do it this way for login
 sessionController.checkPassword = (req, res, next) => {
-  models.User.findOne({
-    where: {
+  console.log('current pos: sessionController.checkPassword');
+  userModel.User.findOne(
+    {
       email: req.body.email
-    }
-  }).then(function(user) {
-    if (!user) {
-      res.redirect('/public');
-    } else {
-      bcrypt.compare(req.body.password, user.password, function(err, result) {
-        if (result == true) {
+    },
+    function(err, user) {
+      if (err) {
+        return next(err);
+      } else {
+        // bcrypt.compareSync(passwords[i], userObj.password)
+        const inputPassword = bcrypt.compareSync(req.body.password, user.password);
+
+        // bcrypt.compare(req.body.password, user.password, function(err, result) {
+        // console.log(err);
+        if (inputPassword == true) {
+          console.log('line 37');
           res.locals.authenticated = true;
-          res.redirect('/main');
+          // return next();
+          // res.redirect('/main');
+          return next();
         } else {
-          res.send('Incorrect password');
-          res.redirect('/public');
+          res.locals.authenticated = false;
+          // return next();
+          // res.send('Incorrect password');
+          // res.redirect('/public');
+          return next();
         }
-      });
+        // });
+        console.log('at bottom of .then bycryptCompare');
+        // }
+      }
+
+      console.log('current pos: sessionController.checkPassword BOTTOM');
     }
-  });
-  return next();
+  );
 };
 
 sessionController.setSSID = (req, res, next) => {

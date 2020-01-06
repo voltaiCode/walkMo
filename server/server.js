@@ -7,6 +7,7 @@ const path = require('path');
 const models = require('./models/userModel');
 const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
+const webpack = require('webpack');
 
 const PORT = 3000;
 
@@ -34,13 +35,22 @@ app.post(
 );
 
 // login user
-// app.get('/login', sessionController.encrypt, userController.getUser, (req, res) => {
-//   res.status(200).json('send user info as an object');
-//   // front end needs - authentication: boolean, all user info
-//   // Middleware
-//   // passwordController.checkPassword
-//   // userController.findUser
-// });
+app.post(
+  '/login',
+  // sessionController.encrypt,
+  userController.getUser,
+  sessionController.checkPassword,
+  (req, res) => {
+    if (res.locals.authenticated === true) {
+      console.log('current pos: server response for post req to login');
+      res.status(200).json(res.locals.user);
+      // front end needs - authentication: boolean, all user info
+    } else {
+      // authentication failed and returns a simple false
+      res.status(400).json(res.locals.authenticated);
+    }
+  }
+);
 
 // Might need this
 app.get('/stats', (req, res) => {});
@@ -55,15 +65,14 @@ app.post('/completed', userController.addWalk, (req, res) => {
   // userController.addWalk
   res.status(200).json('sick walk');
 });
-// req.body update user in db
 
-// For serving client index.html
-// app.get('/', (req, res) => {
-//   res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
-// });
+// default for serving index
+app.use('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
+});
 
 // catch-all route handler for any requests to an unknown route
-// app.use((req, res) => res.sendStatus(404));
+app.use('/*', (req, res) => res.sendStatus(404));
 
 // Global error handler
 app.use((err, req, res, next) => {

@@ -40,6 +40,7 @@ userController.getUser = (req, res, next) => {
   const userToFind = {
     email: req.body.email
   }; // possibly stored at in another variable (test and adjust)
+  console.log('current pos: userController.getUser');
   userModel.User.findOne(userToFind, function(err, docs) {
     if (err) {
       return next({
