@@ -1,5 +1,5 @@
-const User = require('../models/userModel');
-const cookieParser = require('cookieParser');
+const userModel = require('../models/userModel');
+const cookieParser = require('cookie-parser');
 const cookie = require('../models/cookieModel');
 const bcrypt = require('bcrypt');
 
@@ -12,25 +12,35 @@ const userController = {};
 userController.createUser = (req, res, next) => {
   // password should have been hashed in previous middleware
   const newUser = req.body;
-  models.User.create(newUser, function(err, docs) {
-    if (err) {
-      return next({
-        log: 'user error: ERROR: Error creating user from DB. Check credentials and try again.',
-        message: {
-          err: 'Error occurred in userController.createUser. Check server logs for more details.'
-        }
-      });
-    } else {
-      res.locals.createdUser = docs;
-      return next();
-    }
-  });
+  if (res.locals.user == null) {
+    userModel.User.create(newUser, function(err, docs) {
+      if (err) {
+        return next({
+          log: 'user error: ERROR: Error creating user in DB.',
+          message: {
+            err: 'Error creating new user.'
+          }
+        });
+      } else {
+        res.locals.createdUser = docs;
+        res.locals.authenticated = true;
+        return next();
+      }
+    });
+  } else {
+    return next({
+      log:
+        'user error: Client request made to an already existing email address within our user database.',
+      message: 'It appears this email address is already being used. Try logging in.'
+    });
+  }
 };
 
 userController.getUser = (req, res, next) => {
-  const userToFind = req.params.name; // possibly stored at in another variable (test and adjust)
-  // will need to test the find on this
-  models.User.find(userToFind, function(err, docs) {
+  const userToFind = {
+    email: req.body.email
+  }; // possibly stored at in another variable (test and adjust)
+  userModel.User.findOne(userToFind, function(err, docs) {
     if (err) {
       return next({
         log: 'user not found: ERROR: Error getting user from DB. Check credentials and try again.',
@@ -52,7 +62,8 @@ userController.addWalk = (req, res, next) => {
   // push completedWalk(s) to user prevRoutes array
   res.locals.user.prevRoutes.push(completedWalk);
   // findAndUpdate user's prevRoutes in DB
-  const userID = res.locals.user._id;
+  // may need to adjust during integration testing
+  const userID = req.params.id;
   models.User.findByIdAndUpdate(userID, function(err, docs) {
     if (err) {
       return next({
@@ -68,3 +79,4 @@ userController.addWalk = (req, res, next) => {
     }
   });
 };
+module.exports = userController;

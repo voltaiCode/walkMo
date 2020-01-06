@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 // fake require in for models (testing)
 const models = require('./models/userModel');
+const userController = require('./controllers/userController');
+const sessionController = require('./controllers/sessionController');
 
 const PORT = 3000;
 
@@ -15,24 +17,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // sign-up user
-app.post('/signup', sessionController.encrypt, userController.createUser, (req, res) => {
-  // Middleware
-  // sessionController.encrypt
-  // userController.findUser
-  // userController.createUser
-  // res.locals.request = req.body;
-  // res.status(200).send('route to user page');
-  // front end needs - authentication: boolean, all user info
-});
+app.post(
+  '/signup',
+  sessionController.encrypt,
+  userController.getUser,
+  userController.createUser,
+  (req, res) => {
+    // res.status(200).send('route to user page');
+    // front end needs - authentication: boolean, all user info
+    if (res.locals.authenticated === true) {
+      res.status(200).json('works just fine');
+    } else {
+      res.status(418).json('I am a teapot');
+    }
+  }
+);
 
 // login user
-app.get('/login', sessionController.encrypt, userController.findUser, (req, res) => {
-  res.status(200).json('send user info as an object');
-  // front end needs - authentication: boolean, all user info
-  // Middleware
-  // passwordController.checkPassword
-  // userController.findUser
-});
+// app.get('/login', sessionController.encrypt, userController.getUser, (req, res) => {
+//   res.status(200).json('send user info as an object');
+//   // front end needs - authentication: boolean, all user info
+//   // Middleware
+//   // passwordController.checkPassword
+//   // userController.findUser
+// });
 
 // Might need this
 app.get('/stats', (req, res) => {});
@@ -50,12 +58,12 @@ app.post('/completed', userController.addWalk, (req, res) => {
 // req.body update user in db
 
 // For serving client index.html
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
-});
+// app.get('/', (req, res) => {
+//   res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
+// });
 
 // catch-all route handler for any requests to an unknown route
-app.use((req, res) => res.sendStatus(404));
+// app.use((req, res) => res.sendStatus(404));
 
 // Global error handler
 app.use((err, req, res, next) => {
