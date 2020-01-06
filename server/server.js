@@ -50,7 +50,7 @@ app.post('/completed', userController.addWalk, (req, res) => {
 // req.body update user in db
 
 // For serving client index.html
-app.get('/', (req, res) => {
+app.use('*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
