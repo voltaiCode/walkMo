@@ -12,17 +12,18 @@ class Main extends Component {
       user: 'phonores'
     };
   };
+  // <BrowserRouter>
+  //         <Switch>
+  //           <Header />
+  //           <Route path = "/stats" component = {MainUserStats}/>
+  //           <Route path = "/createWalk" component = {InputLocation}/>
+  //           <Route path = "/route" component = {RenderMap} />     
+  //         </Switch>
+  //       </BrowserRouter>
   render() {
     return(
       <React.Fragment>
-        <BrowserRouter>
-          <Switch>
-            <Header />
-            <Route path = "/stats" component = {MainUserStats}/>
-            <Route path = "/createWalk" component = {InputLocation}/>
-            <Route path = "/route" component = {RenderMap} />     
-          </Switch>
-        </BrowserRouter>
+        <h1>Hola</h1>
       </React.Fragment>
     );
   };
