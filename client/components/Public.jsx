@@ -21,19 +21,19 @@ const Public = (props) => {
   `
   return (
     <React.Fragment>
-    <LogIn changeLoggedIn={props.changeLoggedIn} />
-    <Container>
-      <Row>
-        <Col>
-        <H1> Start moving and get points! </H1>
-        <P>See your previous completed walks</P>
-        <P>Enjoy new places with easy and fun routes </P>
-        </Col>
-        <Col>
-        <SignUp changeLoggedIn={props.changeLoggedIn}/>
-        </Col>
-      </Row>     
-    </Container>
+      <LogIn changeLoggedIn={props.changeLoggedIn} />
+      <Container>
+        <Row>
+          <Col>
+          <H1> Start moving and get points! </H1>
+          <P>See your previous completed walks</P>
+          <P>Enjoy new places with easy and fun routes </P>
+          </Col>
+          <Col>
+          <SignUp changeLoggedIn={props.changeLoggedIn}/>
+          </Col>
+        </Row>     
+      </Container>
     </React.Fragment>
   );
 };

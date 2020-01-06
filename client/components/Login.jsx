@@ -47,7 +47,9 @@ const LogIn = props => {
     }
     return(
         <Navbar bg="dark" variant="dark">
+
             <Navbar.Brand href="#Home">WalkMo</Navbar.Brand>
+
                 <Form noValidate validated={validated} onSubmit={handleClick}>
                     <Form.Row>
                         <Form.Group as={Col}>
@@ -78,7 +80,7 @@ const LogIn = props => {
                             </Form.Control.Feedback>
                         </Form.Group> 
                         <Form.Group as={Col}> 
-                        <Button type="submit" variant="outline-info">Log In</Button>
+                        <Button type="submit" variant="outline-success">Log In</Button>
                     {/* <Nav.Item>
                         <Nav.Link href="/Home">Forgot Password?</Nav.Link>
                         </Nav.Item> */}

@@ -14,7 +14,7 @@ class App extends Component {
   };
   changeLoggedIn(value) {
     this.setState({
-      loggedIn: value,
+      loggedIn: value, 
     });
   }
   // <Route exact path = "/stats" component = {Main}/>         
