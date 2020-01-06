@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { BrowserRouter , Route, Switch} from 'react-router-dom';
+import { withScriptjs } from "react-google-maps";
 import Header from './Header.jsx';
 import MainUserStats from './MainUserStats.jsx';
 import InputLocation from './InputLocation.jsx';
@@ -17,13 +18,17 @@ class Main extends Component {
   //           <Header />
   //           <Route path = "/stats" component = {MainUserStats}/>
   //           <Route path = "/createWalk" component = {InputLocation}/>
-  //           <Route path = "/route" component = {RenderMap} />     
+  //           
   //         </Switch>
   //       </BrowserRouter>
   render() {
+    const MapLoader = withScriptjs(RenderMap);
     return(
       <React.Fragment>
-        <h1>Hola</h1>
+        <MapLoader
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA1pIbzYAxkCxQQz143WWX96K6DnMfn6bA`} 
+          loadingElement={<div style={{ height: `100%` }} />}
+        />
       </React.Fragment>
     );
   };

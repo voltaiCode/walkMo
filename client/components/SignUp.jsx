@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import { Form, Col, Button} from 'react-bootstrap';
 import styled from 'styled-components';
 /**
@@ -16,7 +15,10 @@ const useInput = init => {
   // return the value with the onChange function instead of setValue function
   return [ value, onChange ];
 };
-
+/**
+ * SignUp container handles the create a new user logic 
+ * @param {changeLoggedIn} props loggedIn state handler, depending on the value public or main container are render
+ */
 const signUp = props => {
   // Setting the state and handlers by calling useInput
   const [ firstName, firstNameOnChange ] = useInput('');
@@ -213,4 +215,4 @@ const signUp = props => {
   )
 };
 
-export default withRouter(signUp);
+export default signUp;
