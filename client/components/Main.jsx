@@ -17,13 +17,13 @@ class Main extends Component {
   //           <Header />
   //           <Route path = "/stats" component = {MainUserStats}/>
   //           <Route path = "/createWalk" component = {InputLocation}/>
-  //           <Route path = "/route" component = {RenderMap} />     
+  //           
   //         </Switch>
   //       </BrowserRouter>
   render() {
     return(
       <React.Fragment>
-        <h1>Hola</h1>
+        <RenderMap />
       </React.Fragment>
     );
   };

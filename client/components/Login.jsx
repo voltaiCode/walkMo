@@ -1,8 +1,5 @@
 import React, { Component, useState } from 'react';
 import { Container, Navbar, Nav, Form, Button, Col} from 'react-bootstrap';
-import styled from 'styled-components';
-import axios from 'axios';
-
 
 const userInput = init => {
     const  [value, setValue ] = useState(init);
@@ -49,8 +46,7 @@ const LogIn = props => {
     return(
         <Navbar bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="#Home">WalkMo</Navbar.Brand>
-                
+                <Navbar.Brand href="#Home">WalkMo</Navbar.Brand>       
                 <Form noValidate validated={validated} onSubmit={handleClick}>
                     <Form.Row>
                         <Form.Group as={Col}>
@@ -81,7 +77,7 @@ const LogIn = props => {
                             </Form.Control.Feedback>
                         </Form.Group> 
                         <Form.Group as={Col}> 
-                        <Button type="submit" variant="outline-info">Log In</Button>
+                        <Button type="submit" variant="outline-success">Log In</Button>
                     {/* <Nav.Item>
                         <Nav.Link href="/Home">Forgot Password?</Nav.Link>
                     </Nav.Item> */}
