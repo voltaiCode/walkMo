@@ -55,7 +55,7 @@ const LogIn = props => {
 
             <Navbar.Brand href="#Home">WalkMo</Navbar.Brand>
 
-                <Form noValidate validated={validated} onSubmit={handleClick}>
+                <Form noValidate validated={validated} onSubmit={handleClick} className='ml-auto'>
                     <Form.Row>
                         <Form.Group as={Col}>
                             <Form.Control

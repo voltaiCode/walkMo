@@ -14,10 +14,10 @@ const Main = (props) => {
   //         </Switch>
   //       </BrowserRouter>
     // console.log(props.user.user);
+    //<span id='user' value={props.user.user._id} ></span>
     const MapLoader = withScriptjs(RenderMap);
     return(
-      <React.Fragment>
-        <span id='user' value={props.user.user._id} ></span>
+      <React.Fragment>    
         <MapLoader
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA1pIbzYAxkCxQQz143WWX96K6DnMfn6bA`} 
           loadingElement={<div style={{ height: `100%` }} />}
