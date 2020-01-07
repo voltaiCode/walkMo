@@ -11,7 +11,7 @@ const userInput = init => {
 }
 //using Hooks to create state and use validated method in Bootstrap
 const LogIn = props => {
-    const [username, usernameOnChange ] = userInput('');
+    const [email, usernameOnChange ] = userInput('');
     const [password, passwordOnChange ] = userInput('');
 
     const [validated, setValidated] = useState(false);
@@ -20,29 +20,34 @@ const LogIn = props => {
     const handleClick = event =>{
         const form = event.currentTarget;
         event.preventDefault();
-        event.stopPropagation();
-        
+        event.stopPropagation();    
         if (form.checkValidity() === false){
             setValidated(true);
-        }
-        
+        }     
         else {
             const body = {
-                username,
+                email,
                 password
             }
-            setValidated(false);
-            console.log(body)
-            // fetch('/URL here',{
-            //     method: 'POST',
-            //     header: {"Content-Type": "Application/JSON"},
-            //     body: JSON.stringify(body)
-            // })
-            // .then(resp => resp.json())
-            // .then(data => {
-                  props.changeLoggedIn(true);
-            // })
-            // .catch(err => console.log('Error: Log In User failed', err);
+            setValidated(false);            
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                  "Content-Type":"Application/JSON"
+                },
+                body: JSON.stringify(body)
+              })
+              .then(resp => resp.json(0))
+              .then(data => {
+                if (data.authenticated) {
+                    props.userChange(data);
+                    props.changeLoggedIn(true);
+                }
+                else {
+                  alert("Check credentials and try again");
+                }
+              })
+              .catch(err => console.log('Login fetch /: ERROR: ', err));  
         }
     }
     return(
@@ -58,7 +63,7 @@ const LogIn = props => {
                                 className="mr-sm-2"
                                 placeholder="email"
                                 required
-                                value={username}
+                                value={email}
                                 onChange={usernameOnChange}
                             />
                             <Form.Control.Feedback type="invalid">

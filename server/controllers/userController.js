@@ -28,11 +28,8 @@ userController.createUser = (req, res, next) => {
       }
     });
   } else {
-    return next({
-      log:
-        'user error: Client request made to an already existing email address within our user database.',
-      message: 'It appears this email address is already being used. Try logging in.'
-    });
+      res.locals.authenticated = false;
+      return next();
   }
 };
 
@@ -51,6 +48,7 @@ userController.getUser = (req, res, next) => {
       });
     } else {
       res.locals.user = docs;
+      if (!res.locals.user) res.locals.authenticated = false;
       return next();
     }
   });

@@ -26,11 +26,7 @@ app.post(
   (req, res) => {
     // res.status(200).send('route to user page');
     // front end needs - authentication: boolean, all user info
-    if (res.locals.authenticated === true) {
-      res.status(200).json('works just fine');
-    } else {
-      res.status(418).json('I am a teapot');
-    }
+    res.status(200).json(res.locals);
   }
 );
 
@@ -41,14 +37,8 @@ app.post(
   userController.getUser,
   sessionController.checkPassword,
   (req, res) => {
-    if (res.locals.authenticated === true) {
-      console.log('current pos: server response for post req to login');
-      res.status(200).json(res.locals.user);
+      res.status(200).json(res.locals);
       // front end needs - authentication: boolean, all user info
-    } else {
-      // authentication failed and returns a simple false
-      res.status(400).json(res.locals.authenticated);
-    }
   }
 );
 
@@ -67,7 +57,7 @@ app.post('/completed', userController.addWalk, (req, res) => {
 });
 
 // default for serving index
-app.use('/', (req, res) => {
+app.use('*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 

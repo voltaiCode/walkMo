@@ -8,13 +8,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true
+      loggedIn: false,
+      user: [],
     };
     this.changeLoggedIn = this.changeLoggedIn.bind(this);
+    this.userChange = this.userChange.bind(this);
   };
   changeLoggedIn(value) {
     this.setState({
       loggedIn: value, 
+    });
+  }
+  userChange(value) {
+    this.setState({
+      user: value, 
     });
   }
   // <Route exact path = "/stats" component = {Main}/>         
@@ -25,7 +32,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/">
-              {this.state.loggedIn ? <Main /> : <Public changeLoggedIn={this.changeLoggedIn} />}
+              {this.state.loggedIn ? <Main user={this.state.user}/> : <Public changeLoggedIn={this.changeLoggedIn} userChange={this.userChange}/>}
             </Route>      
           </Switch>
         </BrowserRouter>

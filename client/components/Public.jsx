@@ -21,7 +21,7 @@ const Public = (props) => {
   `
   return (
     <React.Fragment>
-      <LogIn changeLoggedIn={props.changeLoggedIn} />
+      <LogIn changeLoggedIn={props.changeLoggedIn} userChange={props.userChange} />
       <Container>
         <Row>
           <Col>
@@ -30,7 +30,7 @@ const Public = (props) => {
           <P>Enjoy new places with easy and fun routes </P>
           </Col>
           <Col>
-          <SignUp changeLoggedIn={props.changeLoggedIn}/>
+          <SignUp changeLoggedIn={props.changeLoggedIn} userChange={props.userChange}/>
           </Col>
         </Row>     
       </Container>
