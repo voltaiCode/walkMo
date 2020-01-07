@@ -10,7 +10,8 @@ module.exports = {
       contentBase: "./client",
       publicPath: '/build/',
       proxy: {
-          '/': 'http://localhost:3000'
+          '/signup': 'http://localhost:3000',
+          '/login': 'http://localhost:3000'
       }
     },
     mode: process.env.NODE_ENV,

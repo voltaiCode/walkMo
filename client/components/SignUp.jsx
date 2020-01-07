@@ -44,29 +44,32 @@ const signUp = props => {
     // Props are correctly set, sending data to server
     else{
       setValidated(false);
+      const birth = month+day+year;
       const body = {
         firstName,
         lastName,
         email,
         password,
-        month,
-        day,
-        year
-      }
-      console.log(body);
-     
-    //   fetch('/signUp', {
-    //     method: 'POST',
-    //     headers: {
-    //       "Content-Type":"Application/JSON"
-    //     },
-    //     body: JSON.stringify(body)
-    //   })
-    //   .then(resp => resp.json(0))
-    //   .then(data => {
-           props.changeLoggedIn(true);
-    //   })
-    //   .catch(err => console.log('SignUp fetch /: ERROR: ', err));    
+        birth
+      }   
+      fetch('/signup', {
+        method: 'POST',
+        headers: {
+          "Content-Type":"Application/JSON"
+        },
+        body: JSON.stringify(body)
+      })
+      .then(resp => resp.json(0))
+      .then(data => {
+        if (data.authenticated) {
+          props.userChange(data);
+          props.changeLoggedIn(true);
+        }
+        else {
+          alert("User already exists!");
+        }
+      })
+      .catch(err => console.log('SignUp fetch /: ERROR: ', err));    
     }   
   };
 

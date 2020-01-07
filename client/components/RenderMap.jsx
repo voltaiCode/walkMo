@@ -21,6 +21,12 @@ class RenderMap extends Component {
     this.handleFinish = this.handleFinish.bind(this);
     this.runService = this.runService.bind(this);
   }
+  
+  // componentDidMount(){
+  //   let aux = document.getElementById('user').innerHTML;
+  //   console.log(aux);
+  // }
+
   // Calculating the route with google map Api
   runService() {
     const directionsService = new google.maps.DirectionsService();
@@ -83,6 +89,7 @@ class RenderMap extends Component {
     this.setState({
       selectDestination: false,
     });
+    console.log(document.getElementById('user').value);
     // fetch('/signUp', {
       //     method: 'POST',
       //     headers: {
