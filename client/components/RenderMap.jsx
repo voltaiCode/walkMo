@@ -23,7 +23,7 @@ class RenderMap extends Component {
   }
   
   // componentDidMount(){
-  //   let aux = document.getElementById('user').innerHTML;
+  //   let aux = document.getElementById('user').value;
   //   console.log(aux);
   // }
 
